@@ -80,7 +80,7 @@ function buildTeamNotification(lead: LeadPayload): string {
 
 function buildLeadConfirmation(lead: LeadPayload): string {
   const nome = escapeHtml(lead.nome.split(" ")[0]);
-  const whatsappNumber = Deno.env.get("WHATSAPP_NUMBER") || "5500000000000";
+  const whatsappNumber = Deno.env.get("WHATSAPP_NUMBER") || "5544998047474";
 
   let scoreSection = "";
   if (lead.score) {
