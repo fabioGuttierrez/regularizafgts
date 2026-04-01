@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Playbook Comercial — RegularizaFGTS</title>
+<style>
+  @page { size: A4; margin: 20mm 18mm; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; color: #1a1a1a; line-height: 1.6; background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  .page { width: 210mm; min-height: 297mm; margin: 0 auto; padding: 44px 50px; page-break-after: always; position: relative; }
+  .page:last-child { page-break-after: auto; }
+
+  /* CAPA */
+  .page-capa { background: linear-gradient(165deg, #0B1D3A 0%, #132f54 100%); color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 60px; }
+  .capa-badge { display: inline-block; background: rgba(255,107,44,0.15); color: #FF6B2C; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; padding: 8px 20px; border-radius: 30px; border: 1px solid rgba(255,107,44,0.3); margin-bottom: 36px; }
+  .capa-title { font-size: 34px; font-weight: 800; line-height: 1.25; margin-bottom: 20px; }
+  .capa-title span { color: #FF6B2C; }
+  .capa-sub { font-size: 15px; color: #8899B0; max-width: 400px; line-height: 1.7; margin-bottom: 40px; }
+  .capa-logo { font-size: 20px; font-weight: 700; }
+  .capa-logo span { color: #FF6B2C; }
+  .capa-footer { position: absolute; bottom: 30px; font-size: 10px; color: #4a5568; }
+  .capa-conf { background: rgba(239,68,68,0.15); color: #FCA5A5; border: 1px solid rgba(239,68,68,0.2); border-radius: 8px; padding: 12px 20px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 40px; }
+
+  /* HEADER */
+  .ph { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; padding-bottom: 12px; border-bottom: 2px solid #f0f2f5; }
+  .ph-logo { font-size: 13px; font-weight: 700; color: #0B1D3A; }
+  .ph-logo span { color: #FF6B2C; }
+  .ph-pg { font-size: 11px; color: #999; }
+
+  /* SECTION */
+  .badge { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 5px 13px; border-radius: 20px; margin-bottom: 14px; }
+  .badge.blue { background: #EEF2FF; color: #1E5AFA; }
+  .badge.orange { background: #FFF3ED; color: #FF6B2C; }
+  .badge.green { background: #F0FDF4; color: #16a34a; }
+  .badge.red { background: #FEF2F2; color: #EF4444; }
+  .badge.purple { background: #F5F3FF; color: #7C3AED; }
+
+  h2 { font-size: 24px; font-weight: 800; color: #0B1D3A; line-height: 1.25; margin-bottom: 12px; }
+  h3 { font-size: 17px; font-weight: 700; color: #0B1D3A; margin: 24px 0 10px; }
+  h4 { font-size: 14px; font-weight: 700; color: #0B1D3A; margin-bottom: 6px; }
+  .intro { font-size: 14px; color: #555; line-height: 1.7; margin-bottom: 24px; }
+
+  /* BOXES */
+  .box { background: #f8f9fb; border-radius: 10px; padding: 24px; margin-bottom: 16px; }
+  .box-blue { background: #f0f5ff; border-left: 4px solid #1E5AFA; }
+  .box-orange { background: #FFF8F3; border-left: 4px solid #FF6B2C; }
+  .box-red { background: #FEF2F2; border-left: 4px solid #EF4444; }
+  .box-green { background: #F0FDF4; border-left: 4px solid #16a34a; }
+
+  .box p { font-size: 13.5px; color: #444; line-height: 1.7; margin-bottom: 10px; }
+  .box p:last-child { margin-bottom: 0; }
+  .box strong { color: #0B1D3A; }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+  th { background: #0B1D3A; color: #fff; text-align: left; padding: 10px 14px; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 10px 14px; border-bottom: 1px solid #eee; color: #333; vertical-align: top; }
+  tr:nth-child(even) td { background: #f8f9fb; }
+
+  /* LIST */
+  ul, ol { margin: 8px 0 16px 20px; }
+  li { font-size: 13.5px; color: #444; margin-bottom: 6px; line-height: 1.6; }
+  li strong { color: #0B1D3A; }
+
+  /* EMAIL TEMPLATE */
+  .email-tpl { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 28px; margin: 16px 0; font-size: 13.5px; color: #333; line-height: 1.7; }
+  .email-tpl .from { font-size: 12px; color: #888; margin-bottom: 4px; }
+  .email-tpl .subject { font-size: 14px; font-weight: 700; color: #0B1D3A; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #eee; }
+  .email-tpl .sig { margin-top: 20px; padding-top: 12px; border-top: 1px solid #eee; font-size: 12px; color: #666; }
+  .email-tpl .sig strong { color: #0B1D3A; }
+  .email-tpl .highlight { background: #FFFBEB; padding: 12px 16px; border-radius: 6px; border-left: 3px solid #F59E0B; margin: 12px 0; font-size: 13px; }
+
+  /* WHATSAPP */
+  .wpp { background: #E8F5E9; border-radius: 12px; padding: 20px; margin: 12px 0; font-size: 13.5px; color: #1a1a1a; line-height: 1.7; position: relative; }
+  .wpp::before { content: "WhatsApp"; position: absolute; top: -8px; left: 16px; background: #25D366; color: #fff; font-size: 9px; font-weight: 700; padding: 2px 10px; border-radius: 10px; text-transform: uppercase; letter-spacing: 1px; }
+  .wpp .var { background: #C8E6C9; padding: 1px 6px; border-radius: 4px; font-weight: 600; font-size: 12px; }
+
+  /* TAG */
+  .tag { display: inline-block; background: #EEF2FF; color: #1E5AFA; font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: 12px; margin-right: 4px; }
+  .tag.hot { background: #FEF2F2; color: #EF4444; }
+  .tag.warm { background: #FFFBEB; color: #D97706; }
+
+  /* SCRIPT STEPS */
+  .step { display: flex; gap: 14px; margin-bottom: 16px; }
+  .step-n { width: 32px; height: 32px; min-width: 32px; border-radius: 50%; background: #1E5AFA; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
+  .step-body h4 { margin-bottom: 4px; }
+  .step-body p { font-size: 13px; color: #555; line-height: 1.6; }
+
+  /* OBJECTION */
+  .objection { margin-bottom: 16px; }
+  .objection .q { font-size: 13.5px; font-weight: 700; color: #EF4444; margin-bottom: 4px; }
+  .objection .a { font-size: 13px; color: #333; line-height: 1.6; padding-left: 16px; border-left: 3px solid #1E5AFA; }
+
+  @media screen {
+    body { background: #e5e7eb; padding: 20px 0; }
+    .page { box-shadow: 0 4px 24px rgba(0,0,0,0.12); margin-bottom: 20px; }
+  }
+  @media print {
+    .page { margin: 0; box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════ -->
+<!-- CAPA -->
+<!-- ═══════════════════════════════════ -->
+<div class="page page-capa">
+  <div class="capa-conf">Documento confidencial — Uso interno</div>
+  <div class="capa-badge">Playbook comercial 2026</div>
+  <h1 class="capa-title">Playbook de Abordagem<br><span>Comercial</span></h1>
+  <p class="capa-sub">Estratégia completa para captação de empresas com FGTS irregular — base de dados abertos da dívida ativa (200K+ empresas).</p>
+  <div style="width:60px;height:3px;background:#1E5AFA;border-radius:3px;margin-bottom:40px;"></div>
+  <div class="capa-logo">Regulariza<span>FGTS</span></div>
+  <div class="capa-footer">Documento interno — Não distribuir</div>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!-- PÁGINA 2 — ICP -->
+<!-- ═══════════════════════════════════ -->
+<div class="page">
+  <div class="ph"><div class="ph-logo">Regulariza<span>FGTS</span></div><div class="ph-pg">02</div></div>
+
+  <div class="badge blue">Definição estratégica</div>
+  <h2>Perfil Ideal de Cliente (ICP)</h2>
+  <p class="intro">Antes de qualquer abordagem, entender exatamente quem é seu público é o que separa spam de uma abordagem consultiva e profissional.</p>
+
+  <h3>Segmentação Primária — Dados Abertos Dívida Ativa</h3>
+  <table>
+    <tr><th>Critério</th><th>Perfil Ideal</th><th>Prioridade</th></tr>
+    <tr><td><strong>Situação fiscal</strong></td><td>Inscrita na dívida ativa de FGTS (PGFN/Caixa)</td><td><span class="tag hot">Alta</span></td></tr>
+    <tr><td><strong>Porte</strong></td><td>Médias empresas (50-500 funcionários)</td><td><span class="tag hot">Alta</span></td></tr>
+    <tr><td><strong>Setor</strong></td><td>Construção civil, indústria, serviços, comércio varejista</td><td><span class="tag hot">Alta</span></td></tr>
+    <tr><td><strong>Tempo na dívida</strong></td><td>1 a 5 anos (urgência real, ainda tem tempo de agir)</td><td><span class="tag hot">Alta</span></td></tr>
+    <tr><td><strong>Localização</strong></td><td>Priorizar região de atuação (PR, SP, SC)</td><td><span class="tag warm">Média</span></td></tr>
+    <tr><td><strong>Valor do débito</strong></td><td>R$ 50.000 a R$ 5.000.000 (ticket viável)</td><td><span class="tag warm">Média</span></td></tr>
+  </table>
+
+  <h3>Decisor — Quem abordar</h3>
+  <table>
+    <tr><th>Cargo</th><th>Abordagem</th><th>Canal preferido</th></tr>
+    <tr><td><strong>Sócio / Empresário</strong></td><td>Foco em risco patrimonial pessoal, bloqueio de contas, prejuízo financeiro</td><td>WhatsApp, reunião</td></tr>
+    <tr><td><strong>Diretor Financeiro / CFO</strong></td><td>Foco em compliance, custo acumulado de juros, impacto no caixa</td><td>Email, reunião</td></tr>
+    <tr><td><strong>Contador / Escritório</strong></td><td>Foco técnico: SEFIP, eSocial, CRF, retificações</td><td>Email, WhatsApp</td></tr>
+    <tr><td><strong>RH / Depto Pessoal</strong></td><td>Foco operacional: divergências, rescisões, vinculação</td><td>Email</td></tr>
+  </table>
+
+  <div class="box box-orange">
+    <p><strong>Dica estratégica:</strong> Sempre tente chegar ao <strong>sócio/decisor</strong>. Contadores e RH são ótimos gatekeepers para gerar urgência interna, mas quem aprova o investimento é o dono. A abordagem ideal: contacte o contador para criar a dor, depois peça reunião com o sócio.</p>
+  </div>
+
+  <h3>Sinais de compra (qualificadores)</h3>
+  <ul>
+    <li><strong>CRF bloqueado</strong> — precisa resolver para operar normalmente</li>
+    <li><strong>Participam de licitações</strong> — sem CRF, estão fora</li>
+    <li><strong>Buscando crédito/financiamento</strong> — bancos exigem regularidade</li>
+    <li><strong>Receberam notificação recente</strong> — urgência imediata</li>
+    <li><strong>Rescisões recentes em volume</strong> — multas de 40% podem estar erradas</li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!-- PÁGINA 3 — EMAIL MODELO 1 -->
+<!-- ═══════════════════════════════════ -->
+<div class="page">
+  <div class="ph"><div class="ph-logo">Regulariza<span>FGTS</span></div><div class="ph-pg">03</div></div>
+
+  <div class="badge orange">Canal: email</div>
+  <h2>Modelo de E-mail — Abordagem Inicial</h2>
+  <p class="intro">Email frio consultivo. O objetivo é gerar curiosidade, demonstrar conhecimento específico e abrir porta para conversa. Nunca vender direto.</p>
+
+  <div class="email-tpl">
+    <div class="from">De: Fabio Gutierrez &lt;contato@regularizafgts.com.br&gt;</div>
+    <div class="subject">FGTS da <span class="var">[EMPRESA]</span> — identificamos uma pendência em seu nome</div>
+
+    <p>Prezado(a) <span class="var">[NOME]</span>,</p>
+
+    <p>Sou o Fabio, da RegularizaFGTS. Somos especializados em regularização de FGTS para empresas.</p>
+
+    <p>Durante uma análise na base de dados abertos do governo federal, identificamos que a empresa <strong><span class="var">[RAZÃO SOCIAL]</span></strong> (CNPJ <span class="var">[CNPJ]</span>) consta com pendências relacionadas ao FGTS junto à PGFN.</p>
+
+    <div class="highlight">
+      <strong>Por que isso é importante:</strong> Empresas nessa situação podem ter o CRF bloqueado, ficam impedidas de participar de licitações, obter crédito bancário, e em casos avançados, podem sofrer execução fiscal com bloqueio de contas.
+    </div>
+
+    <p>A boa notícia: <strong>na maioria dos casos, existe margem para redução significativa do débito</strong> — erros na SEFIP, divergências no eSocial e guias pagas sem vinculação são muito comuns e podem ser corrigidos.</p>
+
+    <p>Gostaria de oferecer um <strong>diagnóstico gratuito e sem compromisso</strong> da situação da sua empresa. Em 24 horas, nossa equipe analisa seu caso e apresenta as possíveis soluções.</p>
+
+    <p>Podemos conversar 15 minutos essa semana? Estou disponível <span class="var">[DIA]</span> às <span class="var">[HORA]</span>, ou me diga o melhor horário para você.</p>
+
+    <p>Abraço,</p>
+
+    <div class="sig">
+      <strong>Fabio Gutierrez</strong><br>
+      RegularizaFGTS — Consultoria em regularização de FGTS<br>
+      (44) 99804-7474 · contato@regularizafgts.com.br<br>
+      regularizafgts.com.br
+    </div>
+  </div>
+
+  <div class="box box-blue">
+    <p><strong>Variáveis para personalizar:</strong></p>
+    <p><span class="var">[EMPRESA]</span> Nome fantasia · <span class="var">[RAZÃO SOCIAL]</span> Razão social completa · <span class="var">[CNPJ]</span> CNPJ formatado · <span class="var">[NOME]</span> Nome do decisor · <span class="var">[DIA]</span> e <span class="var">[HORA]</span> Sugestão de agenda</p>
+  </div>
+
+  <h3>Regras de ouro do email frio</h3>
+  <ol>
+    <li><strong>Assunto pessoal e específico</strong> — mencione o nome da empresa ou a pendência</li>
+    <li><strong>Nunca venda no primeiro email</strong> — ofereça diagnóstico gratuito</li>
+    <li><strong>Dados públicos, não invasivos</strong> — reforce que veio de base aberta do governo</li>
+    <li><strong>CTA claro</strong> — peça 15 minutos, sugira data/hora (reduz fricção)</li>
+    <li><strong>Limite a 150 palavras</strong> — email longo não é lido</li>
+    <li><strong>Envie terça a quinta, 8h-10h</strong> — melhor taxa de abertura B2B</li>
+  </ol>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!-- PÁGINA 4 — EMAIL FOLLOW-UP -->
+<!-- ═══════════════════════════════════ -->
+<div class="page">
+  <div class="ph"><div class="ph-logo">Regulariza<span>FGTS</span></div><div class="ph-pg">04</div></div>
+
+  <div class="badge orange">Canal: email</div>
+  <h2>Modelo de E-mail — Follow-up (3 dias depois)</h2>
+  <p class="intro">Se não houve resposta, envie um follow-up curto. O tom continua consultivo, mas adiciona um gatilho de urgência.</p>
+
+  <div class="email-tpl">
+    <div class="from">De: Fabio Gutierrez &lt;contato@regularizafgts.com.br&gt;</div>
+    <div class="subject">Re: FGTS da <span class="var">[EMPRESA]</span> — atualização importante</div>
+
+    <p><span class="var">[NOME]</span>, bom dia.</p>
+
+    <p>Sei que a rotina é corrida, por isso vou direto ao ponto:</p>
+
+    <p>A pendência de FGTS da <strong><span class="var">[RAZÃO SOCIAL]</span></strong> continua ativa na base da PGFN. Enquanto isso, juros SELIC seguem sendo acumulados sobre o débito — o que significa que <strong>cada mês sem resolver custa mais caro</strong>.</p>
+
+    <p>Nosso diagnóstico é gratuito e leva 24 horas. Se o resultado não fizer sentido para você, zero compromisso.</p>
+
+    <p>Prefere que eu entre em contato por WhatsApp? Me avise.</p>
+
+    <div class="sig">
+      <strong>Fabio Gutierrez</strong><br>
+      RegularizaFGTS · (44) 99804-7474
+    </div>
+  </div>
+
+  <h3>Cadência de e-mails recomendada</h3>
+  <table>
+    <tr><th>Dia</th><th>Ação</th><th>Tom</th></tr>
+    <tr><td>Dia 1</td><td>Email inicial (modelo anterior)</td><td>Consultivo, informativo</td></tr>
+    <tr><td>Dia 4</td><td>Follow-up 1 (modelo acima)</td><td>Urgência leve, oferta de WhatsApp</td></tr>
+    <tr><td>Dia 8</td><td>Follow-up 2 — envie o PDF Checklist como anexo</td><td>"Preparei um material que pode ajudar"</td></tr>
+    <tr><td>Dia 15</td><td>Follow-up final — último contato</td><td>"Respeito seu tempo, fico à disposição"</td></tr>
+  </table>
+
+  <div class="box box-orange">
+    <p><strong>Importante — LGPD:</strong> Os dados das empresas na dívida ativa são dados abertos governamentais (Lei 12.527/2011 — Lei de Acesso à Informação). O CNPJ e razão social são de consulta pública. Para e-mails, use endereços corporativos disponíveis publicamente (site da empresa, LinkedIn, junta comercial). Inclua sempre opção de descadastro no email.</p>
+  </div>
+
+  <h3>Modelo de linha de descadastro (rodapé)</h3>
+  <div class="box">
+    <p style="font-size:12px;color:#888;"><em>Você recebeu este email porque sua empresa consta em base de dados abertos do governo federal com pendências no FGTS. Se não deseja mais receber nossas comunicações, basta responder "REMOVER" que o cancelaremos imediatamente.</em></p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!-- PÁGINA 5 — WHATSAPP -->
+<!-- ═══════════════════════════════════ -->
+<div class="page">
+  <div class="ph"><div class="ph-logo">Regulariza<span>FGTS</span></div><div class="ph-pg">05</div></div>
+
+  <div class="badge green">Canal: whatsapp</div>
+  <h2>Modelos de Abordagem via WhatsApp</h2>
+  <p class="intro">WhatsApp é o canal com maior taxa de resposta no Brasil. A abordagem deve ser curta, pessoal e direta. Nunca envie textão.</p>
+
+  <h3>Modelo 1 — Primeiro contato (cold)</h3>
+  <div class="wpp">
+    Boa tarde, <span class="var">[NOME]</span>! Tudo bem? Aqui é o Fabio, da RegularizaFGTS.<br><br>
+    Estou entrando em contato porque identificamos que a empresa <span class="var">[EMPRESA]</span> consta com uma pendência de FGTS na base do governo federal.<br><br>
+    Trabalhamos especificamente com regularização de FGTS e temos conseguido reduções significativas para empresas nessa situação.<br><br>
+    Posso te explicar em 2 minutos como funciona? Sem compromisso nenhum.
+  </div>
+
+  <h3>Modelo 2 — Follow-up do email (2 dias depois)</h3>
+  <div class="wpp">
+    <span class="var">[NOME]</span>, bom dia! Enviei um email na <span class="var">[dia]</span> sobre a situação do FGTS da <span class="var">[EMPRESA]</span>. Não sei se chegou a ver.<br><br>
+    Resumindo: sua empresa aparece na dívida ativa de FGTS e os juros continuam correndo. Oferecemos um diagnóstico gratuito — em 24h te damos um panorama completo.<br><br>
+    Posso te mandar mais detalhes por aqui?
+  </div>
+
+  <h3>Modelo 3 — Abordagem via contador (ponte)</h3>
+  <div class="wpp">
+    Boa tarde! Aqui é o Fabio, da RegularizaFGTS. Somos especializados em regularização de FGTS para empresas.<br><br>
+    Estou entrando em contato porque identifiquei que algumas empresas da sua carteira podem ter pendências de FGTS na dívida ativa. Isso é muito mais comum do que parece — inclusive por erros em SEFIP e eSocial que passam despercebidos.<br><br>
+    Trabalhamos em parceria com escritórios contábeis. O diagnóstico é gratuito e sem compromisso para seus clientes.<br><br>
+    Podemos marcar 10 minutos para eu explicar como funciona a parceria?
+  </div>
+
+  <h3>Modelo 4 — Gatilho de urgência (lead morno)</h3>
+  <div class="wpp">
+    <span class="var">[NOME]</span>, só um toque rápido: a Receita Federal tem intensificado as ações de cobrança de FGTS este ano. Empresas que estão na dívida ativa estão recebendo notificações de execução fiscal em volume.<br><br>
+    Aquela pendência que conversamos segue ativa. Quanto antes resolver, menor o custo.<br><br>
+    Quer que eu agende o diagnóstico gratuito?
+  </div>
+
+  <div class="box box-green">
+    <p><strong>Boas práticas no WhatsApp:</strong></p>
+    <ul style="margin-top:8px;">
+      <li>Envie entre <strong>9h-11h</strong> ou <strong>14h-16h</strong> (horário comercial)</li>
+      <li>Nunca envie áudio no primeiro contato — texto sempre</li>
+      <li>Use o <strong>nome da pessoa</strong>, nunca "Senhor(a)"</li>
+      <li>Se não respondeu em 48h, mande <strong>uma</strong> mensagem de follow-up e pare</li>
+      <li>Se respondeu mas não avançou, envie o <strong>PDF Checklist</strong> como gatilho</li>
+      <li>Nunca envie link de grupo ou broadcast — sempre individual</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!-- PÁGINA 6 — WHATSAPP PÓS-INTERESSE -->
+<!-- ═══════════════════════════════════ -->
+<div class="page">
+  <div class="ph"><div class="ph-logo">Regulariza<span>FGTS</span></div><div class="ph-pg">06</div></div>
+
+  <div class="badge green">Canal: whatsapp</div>
+  <h2>WhatsApp — Pós-interesse e Qualificação</h2>
+  <p class="intro">Quando o lead responde positivamente, é hora de qualificar e agendar a reunião. Não venda pelo WhatsApp — venda a reunião.</p>
+
+  <h3>Modelo 5 — Quando o lead responde "me explica"</h3>
+  <div class="wpp">
+    Ótimo, <span class="var">[NOME]</span>! Vou te dar o resumo:<br><br>
+    O que fazemos: analisamos toda a situação do FGTS da empresa — recolhimentos, vinculações, SEFIP, eSocial — e identificamos se existem valores cobrados indevidamente ou erros que podem ser corrigidos.<br><br>
+    Em muitos casos, conseguimos uma <strong>redução significativa do valor total</strong> da dívida, e em alguns, a eliminação completa da pendência.<br><br>
+    O diagnóstico inicial é gratuito. Preciso só do CNPJ e uma conversa de 15 minutos para entender a situação.<br><br>
+    Podemos marcar para <span class="var">[DIA]</span> às <span class="var">[HORA]</span>? Pode ser por vídeo ou presencial.
+  </div>
+
+  <h3>Modelo 6 — Envio do material (PDF Checklist)</h3>
+  <div class="wpp">
+    <span class="var">[NOME]</span>, preparei um material que pode te ajudar. É um checklist para identificar se a empresa tem risco no FGTS — leva 3 minutos para preencher.<br><br>
+    [ANEXAR PDF]<br><br>
+    Se marcar mais de 3 itens, vale a pena a gente conversar com mais calma. Me diz o que achou!
+  </div>
+
+  <h3>Modelo 7 — Confirmação de reunião</h3>
+  <div class="wpp">
+    <span class="var">[NOME]</span>, confirmando nossa reunião:<br><br>
+    Data: <span class="var">[DIA/MÊS]</span> (<span class="var">[dia da semana]</span>)<br>
+    Horário: <span class="var">[HORA]</span><br>
+    Local: <span class="var">[endereço / link Google Meet]</span><br><br>
+    Do meu lado, vou preparar uma análise preliminar do CNPJ de vocês para já trazer algo concreto para a reunião.<br><br>
+    Se precisar de algo antes, é só chamar!
+  </div>
+
+  <h3>Modelo 8 — Pós-reunião (mesmo dia)</h3>
+  <div class="wpp">
+    <span class="var">[NOME]</span>, obrigado pela conversa hoje! Foi muito bom entender a situação da <span class="var">[EMPRESA]</span>.<br><br>
+    Como combinamos, vou te enviar o diagnóstico completo até <span class="var">[PRAZO]</span>. Qualquer dúvida antes disso, estou à disposição.<br><br>
+    Abraço!
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!-- PÁGINA 7 — REUNIÃO: ESTRUTURA -->
+<!-- ═══════════════════════════════════ -->
+<div class="page">
+  <div class="ph"><div class="ph-logo">Regulariza<span>FGTS</span></div><div class="ph-pg">07</div></div>
+
+  <div class="badge purple">Canal: reunião presencial / vídeo</div>
+  <h2>Script de Condução de Reunião</h2>
+  <p class="intro">A reunião é onde a conversão acontece. Estrutura clara de 30-45 minutos com foco em ouvir primeiro, depois apresentar a solução.</p>
+
+  <h3>Estrutura da Reunião (30-45 min)</h3>
+
+  <div class="step">
+    <div class="step-n">1</div>
+    <div class="step-body">
+      <h4>Rapport e Contexto (5 min)</h4>
+      <p>"Obrigado por me receber. Antes de falar sobre FGTS, queria entender melhor a empresa de vocês. Quantos funcionários têm hoje? Qual o ramo principal?"</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-n">2</div>
+    <div class="step-body">
+      <h4>Descoberta — Perguntas Estratégicas (10 min)</h4>
+      <p>O objetivo é fazer o cliente verbalizar o problema. Quem fala o problema, sente a dor.</p>
+    </div>
+  </div>
+
+  <div class="box box-blue">
+    <p><strong>Perguntas-chave para a descoberta:</strong></p>
+    <ul>
+      <li>"Vocês já tiveram alguma dificuldade para emitir o CRF nos últimos meses?"</li>
+      <li>"O FGTS é conferido mensalmente ou o escritório faz isso?"</li>
+      <li>"Tiveram rescisões recentes? Como foi o processo da multa de 40%?"</li>
+      <li>"Já tentaram resolver essa pendência de dívida ativa? O que aconteceu?"</li>
+      <li>"Isso já impactou alguma licitação, financiamento ou certidão?"</li>
+      <li>"Vocês têm noção do valor total que consta como débito hoje?"</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <div class="step-n">3</div>
+    <div class="step-body">
+      <h4>Amplificação do Problema (5 min)</h4>
+      <p>Depois de ouvir, conecte o que ele disse com as consequências reais:</p>
+    </div>
+  </div>
+
+  <div class="box box-red">
+    <p><strong>Frases de amplificação:</strong></p>
+    <ul>
+      <li>"O que preocupa é que enquanto vocês não resolvem, os juros SELIC estão correndo em cima desse valor. Todo mês custa mais caro."</li>
+      <li>"Empresas nessa situação têm sido alvo de execução fiscal — isso significa que podem bloquear as contas bancárias da empresa sem aviso prévio."</li>
+      <li>"O CRF bloqueado não impede só licitação — impede qualquer certidão. Se precisarem de crédito, financiamento, ou até vender a empresa, fica travado."</li>
+      <li>"Muitas vezes, parte desse débito nem deveria existir — são erros de SEFIP, divergências de eSocial, guias pagas sem vinculação. Mas enquanto não analisa, está pagando juros sobre algo que pode não dever."</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!-- PÁGINA 8 — REUNIÃO: SOLUÇÃO + OBJEÇÕES -->
+<!-- ═══════════════════════════════════ -->
+<div class="page">
+  <div class="ph"><div class="ph-logo">Regulariza<span>FGTS</span></div><div class="ph-pg">08</div></div>
+
+  <div class="badge purple">Canal: reunião presencial / vídeo</div>
+  <h2>Reunião — Solução e Objeções</h2>
+
+  <div class="step">
+    <div class="step-n">4</div>
+    <div class="step-body">
+      <h4>Apresentação da Solução (10 min)</h4>
+      <p>Agora que o cliente verbalizou a dor, apresente como você resolve:</p>
+    </div>
+  </div>
+
+  <div class="box">
+    <p><strong>Roteiro de apresentação:</strong></p>
+    <ol>
+      <li><strong>"O que fazemos"</strong> — "Somos especializados exclusivamente em FGTS. Analisamos todos os recolhimentos, SEFIP, eSocial, vinculações — tudo."</li>
+      <li><strong>"O que encontramos"</strong> — "Em 80% dos casos, há valores cobrados indevidamente. Erros no eSocial, SEFIP não retificada, guias pagas sem vincular."</li>
+      <li><strong>"Como funciona"</strong> — "Fazemos um diagnóstico completo gratuito. Se fizer sentido, apresentamos um plano de regularização com estimativa de redução."</li>
+      <li><strong>"Resultado"</strong> — "O resultado final: CRF liberado, dívida ativa resolvida, empresa regular para operar, licitar e obter crédito."</li>
+    </ol>
+  </div>
+
+  <div class="step">
+    <div class="step-n">5</div>
+    <div class="step-body">
+      <h4>Tratamento de Objeções (5-10 min)</h4>
+    </div>
+  </div>
+
+  <div class="objection">
+    <div class="q">"Já tenho um contador que cuida disso"</div>
+    <div class="a">"Perfeito, e o trabalho do contador é essencial. Mas regularização de FGTS é uma especialidade muito específica — envolve análise de SEFIP retroativa, cruzamento com eSocial, e negociação com a PGFN. A maioria dos escritórios contábeis não tem uma equipe dedicada para isso. Trabalhamos em parceria com o contador, nunca substituindo."</div>
+  </div>
+
+  <div class="objection">
+    <div class="q">"Quanto custa?"</div>
+    <div class="a">"O diagnóstico é 100% gratuito. Caso sigamos em frente, nossos honorários são baseados na economia que geramos — ou seja, só ganhamos se você economizar. Sem resultado, sem custo."</div>
+  </div>
+
+  <div class="objection">
+    <div class="q">"Vou pensar / vou conversar com meu sócio"</div>
+    <div class="a">"Entendo completamente. Posso te enviar um resumo por escrito para facilitar a conversa com seu sócio? E me diz: faz sentido a gente remarcar para quinta para vocês me darem um retorno?"</div>
+  </div>
+
+  <div class="objection">
+    <div class="q">"Não é prioridade agora"</div>
+    <div class="a">"Entendo. Só um ponto: os juros SELIC correm todo dia sobre esse débito. Se hoje o valor é X, daqui a 6 meses é significativamente maior. O diagnóstico gratuito pelo menos te dá clareza de quanto está em jogo — sem nenhum compromisso. Vale a pena saber o número exato, não acha?"</div>
+  </div>
+
+  <div class="step">
+    <div class="step-n">6</div>
+    <div class="step-body">
+      <h4>Fechamento (5 min)</h4>
+    </div>
+  </div>
+
+  <div class="box box-green">
+    <p><strong>Script de fechamento:</strong></p>
+    <p>"Então, <span class="var">[NOME]</span>, o próximo passo seria o diagnóstico gratuito. Preciso do CNPJ e de uma procuração simples para consultar junto à Caixa. Em 24-48h te entrego o panorama completo com o valor real do débito e as opções de resolução. Posso preparar a documentação para você assinar agora?"</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!-- PÁGINA 9 — RESUMO ESTRATÉGICO -->
+<!-- ═══════════════════════════════════ -->
+<div class="page">
+  <div class="ph"><div class="ph-logo">Regulariza<span>FGTS</span></div><div class="ph-pg">09</div></div>
+
+  <div class="badge blue">Resumo executivo</div>
+  <h2>Funil de Conversão — Visão Geral</h2>
+  <p class="intro">Da base de dados abertos até o fechamento, cada etapa tem um objetivo claro.</p>
+
+  <table>
+    <tr><th>Etapa</th><th>Canal</th><th>Objetivo</th><th>Métrica</th></tr>
+    <tr><td><strong>1. Prospecção</strong></td><td>Base dados abertos PGFN</td><td>Extrair lista segmentada por porte, setor, região</td><td>Leads extraídos/semana</td></tr>
+    <tr><td><strong>2. Primeiro contato</strong></td><td>Email + WhatsApp</td><td>Gerar curiosidade e abrir porta</td><td>Taxa de resposta (&gt;10%)</td></tr>
+    <tr><td><strong>3. Qualificação</strong></td><td>WhatsApp / Telefone</td><td>Confirmar interesse e agendar reunião</td><td>Reuniões agendadas/semana</td></tr>
+    <tr><td><strong>4. Reunião</strong></td><td>Presencial / Vídeo</td><td>Apresentar diagnóstico, gerar urgência</td><td>Taxa de conversão (&gt;40%)</td></tr>
+    <tr><td><strong>5. Diagnóstico</strong></td><td>Entrega consultiva</td><td>Mostrar valor real e opções de solução</td><td>Propostas enviadas</td></tr>
+    <tr><td><strong>6. Fechamento</strong></td><td>Reunião / WhatsApp</td><td>Assinatura do contrato</td><td>Clientes fechados/mês</td></tr>
+  </table>
+
+  <h3>Métricas iniciais recomendadas</h3>
+  <div class="box">
+    <table>
+      <tr><th>Atividade</th><th>Meta semanal</th></tr>
+      <tr><td>Emails enviados</td><td>50-100 empresas</td></tr>
+      <tr><td>WhatsApp enviados</td><td>30-50 empresas</td></tr>
+      <tr><td>Respostas positivas</td><td>10-15 (taxa 10-20%)</td></tr>
+      <tr><td>Reuniões agendadas</td><td>5-8</td></tr>
+      <tr><td>Diagnósticos enviados</td><td>4-6</td></tr>
+      <tr><td>Fechamentos</td><td>2-3</td></tr>
+    </table>
+  </div>
+
+  <h3>Stack de ferramentas sugeridas</h3>
+  <table>
+    <tr><th>Ferramenta</th><th>Uso</th></tr>
+    <tr><td><strong>Brevo</strong></td><td>Disparo de emails em escala com tracking de abertura/clique</td></tr>
+    <tr><td><strong>Google Sheets / CRM</strong></td><td>Controle de pipeline (lead > contato > reunião > proposta > fechamento)</td></tr>
+    <tr><td><strong>WhatsApp Business</strong></td><td>Etiquetas por status, respostas rápidas, catálogo</td></tr>
+    <tr><td><strong>Google Calendar</strong></td><td>Agendamento de reuniões (Calendly / Cal.com para autoagendar)</td></tr>
+    <tr><td><strong>RegularizaFGTS.com.br</strong></td><td>Landing page + simulador + captura de leads orgânicos</td></tr>
+  </table>
+
+  <div class="box box-orange" style="margin-top:20px;">
+    <p><strong>Lembre-se:</strong> A venda não acontece no primeiro contato. O objetivo dos canais frios (email, WhatsApp) é <strong>agendar a reunião</strong>. A reunião é onde você demonstra valor. E o diagnóstico gratuito é a ferramenta que fecha.</p>
+  </div>
+</div>
+
+</body>
+</html>
