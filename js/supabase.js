@@ -4,7 +4,7 @@
    ======================================== */
 
 const SUPABASE_URL = 'https://nxzmnyzvjidjvnhraanw.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_Xc2D7zmjN9f-JhHvFeoGVQ_x4SuYbjZ';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im54em1ueXp2amlkanZuaHJhYW53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwNjMwNTcsImV4cCI6MjA5MDYzOTA1N30.oj_H5-Z2n6y-5vYSK3fJXYKkzSmor8iAVk9_FGDJIhE';
 
 const supabaseHeaders = {
   'Content-Type': 'application/json',
