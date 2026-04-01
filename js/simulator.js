@@ -277,6 +277,9 @@ async function submitSimulatorLead(e) {
       respostas[`pergunta_${i + 1}`] = { question: a.question, answer: a.answer, points: a.points };
     });
     await saveSimulatorResult(lead.id, respostas, result.level);
+
+    // Disparo de e-mail com score (fire-and-forget)
+    sendLeadNotification(lead, 'simulador', result.level);
   }
 
   showResult(result);

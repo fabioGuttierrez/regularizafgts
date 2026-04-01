@@ -184,6 +184,9 @@ document.addEventListener('submit', async (e) => {
     success.classList.add('active');
     success.setAttribute('aria-live', 'polite');
 
+    // Disparo de e-mail (fire-and-forget)
+    sendLeadNotification(result, 'formulario');
+
     if (typeof gtag === 'function') {
       gtag('event', 'conversion', { send_to: 'AW-XXXXX/XXXXX' });
     }

@@ -101,6 +101,31 @@ async function saveLead(data) {
   }
 }
 
+/* ---- Disparar E-mail via Edge Function ---- */
+async function sendLeadNotification(lead, type, score) {
+  try {
+    await fetch(`${SUPABASE_URL}/functions/v1/send-lead-email`, {
+      method: 'POST',
+      headers: supabaseHeaders,
+      body: JSON.stringify({
+        lead: {
+          nome: lead.nome,
+          email: lead.email,
+          telefone: lead.telefone || null,
+          cnpj: lead.cnpj || null,
+          mensagem: lead.mensagem || null,
+          origem: type,
+          score: score || null
+        },
+        type: type
+      })
+    });
+  } catch (err) {
+    // Fire-and-forget: não bloqueia a experiência do usuário
+    console.error('Erro no envio de notificação');
+  }
+}
+
 /* ---- Salvar Resultado Simulador ---- */
 async function saveSimulatorResult(leadId, respostas, score) {
   try {
