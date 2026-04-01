@@ -51,7 +51,7 @@ function getUTMParams() {
   return Object.keys(utms).length ? utms : null;
 }
 
-/* ---- Salvar Lead ---- */
+/* ---- Salvar Lead (via RPC — seguro com SECURITY DEFINER) ---- */
 async function saveLead(data) {
   if (isRateLimited('lead_submit', 3, 300000)) {
     return { error: 'rate_limited' };
@@ -62,20 +62,17 @@ async function saveLead(data) {
 
   try {
     const payload = {
-      nome: sanitizeForDB(data.nome)?.slice(0, 200),
-      email: sanitizeForDB(data.email)?.slice(0, 254),
-      telefone: sanitizeForDB(data.telefone)?.slice(0, 20) || null,
-      cnpj: sanitizeForDB(data.cnpj)?.slice(0, 18) || null,
-      mensagem: sanitizeForDB(data.mensagem)?.slice(0, 2000) || null,
-      origem: ['formulario', 'simulador'].includes(data.origem) ? data.origem : 'formulario'
+      p_nome: sanitizeForDB(data.nome)?.slice(0, 200),
+      p_email: sanitizeForDB(data.email)?.slice(0, 254),
+      p_telefone: sanitizeForDB(data.telefone)?.slice(0, 20) || null,
+      p_cnpj: sanitizeForDB(data.cnpj)?.slice(0, 18) || null,
+      p_mensagem: sanitizeForDB(data.mensagem)?.slice(0, 2000) || null,
+      p_origem: ['formulario', 'simulador'].includes(data.origem) ? data.origem : 'formulario'
     };
 
-    const response = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/insert_lead`, {
       method: 'POST',
-      headers: {
-        ...supabaseHeaders,
-        'Prefer': 'return=representation'
-      },
+      headers: supabaseHeaders,
       body: JSON.stringify(payload)
     });
 
@@ -94,7 +91,7 @@ async function saveLead(data) {
       fbq('track', 'Lead', { content_name: data.origem });
     }
 
-    return result[0];
+    return result;
   } catch (err) {
     console.error('Erro no envio');
     return null;
@@ -126,16 +123,16 @@ async function sendLeadNotification(lead, type, score) {
   }
 }
 
-/* ---- Salvar Resultado Simulador ---- */
+/* ---- Salvar Resultado Simulador (via RPC) ---- */
 async function saveSimulatorResult(leadId, respostas, score) {
   try {
-    const response = await fetch(`${SUPABASE_URL}/rest/v1/simulator_results`, {
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/insert_simulator_result`, {
       method: 'POST',
       headers: supabaseHeaders,
       body: JSON.stringify({
-        lead_id: leadId,
-        respostas: respostas,
-        score: score
+        p_lead_id: leadId,
+        p_respostas: respostas,
+        p_score: score
       })
     });
 
