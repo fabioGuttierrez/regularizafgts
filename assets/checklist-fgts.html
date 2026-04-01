@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checklist FGTS — RegularizaFGTS</title>
+<style>
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+    color: #1a1a1a;
+    line-height: 1.6;
+    background: #fff;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+  }
+
+  .page:last-child {
+    page-break-after: auto;
+  }
+
+  /* ── CAPA ── */
+  .page-capa {
+    background: linear-gradient(165deg, #0B1D3A 0%, #0f2847 50%, #132f54 100%);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 50px 60px;
+  }
+
+  .capa-badge {
+    display: inline-block;
+    background: rgba(255,107,44,0.15);
+    color: #FF6B2C;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 8px 20px;
+    border-radius: 30px;
+    border: 1px solid rgba(255,107,44,0.3);
+    margin-bottom: 40px;
+  }
+
+  .capa-title {
+    font-size: 38px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 24px;
+    max-width: 500px;
+  }
+
+  .capa-title span {
+    color: #FF6B2C;
+  }
+
+  .capa-subtitle {
+    font-size: 17px;
+    color: #8899B0;
+    max-width: 420px;
+    line-height: 1.7;
+    margin-bottom: 50px;
+  }
+
+  .capa-stats {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 50px;
+  }
+
+  .capa-stat {
+    text-align: center;
+  }
+
+  .capa-stat-number {
+    font-size: 36px;
+    font-weight: 800;
+    color: #FF6B2C;
+    display: block;
+    line-height: 1;
+  }
+
+  .capa-stat-label {
+    font-size: 11px;
+    color: #8899B0;
+    margin-top: 8px;
+    display: block;
+    max-width: 140px;
+  }
+
+  .capa-divider {
+    width: 60px;
+    height: 3px;
+    background: #1E5AFA;
+    border-radius: 3px;
+    margin-bottom: 40px;
+  }
+
+  .capa-logo {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+
+  .capa-logo span {
+    color: #FF6B2C;
+  }
+
+  .capa-footer {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 10px;
+    color: #4a5568;
+  }
+
+  /* ── PAGES INTERNAS ── */
+  .page-content {
+    padding: 50px 55px;
+  }
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #f0f2f5;
+  }
+
+  .page-logo {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0B1D3A;
+  }
+
+  .page-logo span {
+    color: #FF6B2C;
+  }
+
+  .page-number {
+    font-size: 11px;
+    color: #999;
+  }
+
+  .section-badge {
+    display: inline-block;
+    background: #EEF2FF;
+    color: #1E5AFA;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+
+  .section-badge.orange {
+    background: #FFF3ED;
+    color: #FF6B2C;
+  }
+
+  .section-badge.red {
+    background: #FEF2F2;
+    color: #EF4444;
+  }
+
+  .section-badge.green {
+    background: #F0FDF4;
+    color: #16a34a;
+  }
+
+  .section-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #0B1D3A;
+    line-height: 1.25;
+    margin-bottom: 16px;
+  }
+
+  .section-intro {
+    font-size: 15px;
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 32px;
+    max-width: 480px;
+  }
+
+  /* ── ABERTURA ── */
+  .abertura-box {
+    background: #f8f9fb;
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 28px;
+  }
+
+  .abertura-box p {
+    font-size: 15px;
+    color: #444;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  .abertura-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .abertura-list li {
+    font-size: 15px;
+    color: #333;
+    padding: 10px 0;
+    padding-left: 32px;
+    position: relative;
+    border-bottom: 1px solid #eee;
+  }
+
+  .abertura-list li:last-child {
+    border-bottom: none;
+  }
+
+  .abertura-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #1E5AFA;
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  /* ── CHECKLIST ── */
+  .checklist {
+    list-style: none;
+    padding: 0;
+  }
+
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid #f0f2f5;
+    font-size: 14.5px;
+    color: #333;
+    line-height: 1.5;
+  }
+
+  .checklist li:last-child {
+    border-bottom: none;
+  }
+
+  .check-box {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    margin-top: 2px;
+  }
+
+  .check-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    border-radius: 50%;
+    background: #EEF2FF;
+    color: #1E5AFA;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  /* ── IMPACT CARDS ── */
+  .impact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .impact-card {
+    background: #FEF2F2;
+    border-radius: 10px;
+    padding: 20px;
+    border-left: 4px solid #EF4444;
+  }
+
+  .impact-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0B1D3A;
+    margin-bottom: 6px;
+  }
+
+  .impact-card p {
+    font-size: 12.5px;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  .impact-card.warning {
+    background: #FFFBEB;
+    border-left-color: #F59E0B;
+  }
+
+  /* ── ERROS ── */
+  .error-item {
+    display: flex;
+    gap: 16px;
+    padding: 20px 0;
+    border-bottom: 1px solid #f0f2f5;
+  }
+
+  .error-item:last-child {
+    border-bottom: none;
+  }
+
+  .error-icon {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    border-radius: 10px;
+    background: #FFF3ED;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+
+  .error-item h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0B1D3A;
+    margin-bottom: 4px;
+  }
+
+  .error-item p {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  /* ── AUTOAVALIAÇÃO ── */
+  .score-box {
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-top: 28px;
+  }
+
+  .score-box.green {
+    background: #F0FDF4;
+    border: 1px solid #BBF7D0;
+  }
+
+  .score-box.yellow {
+    background: #FFFBEB;
+    border: 1px solid #FDE68A;
+  }
+
+  .score-box.red {
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+  }
+
+  .score-box h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .score-box.green h4 { color: #16a34a; }
+  .score-box.yellow h4 { color: #D97706; }
+  .score-box.red h4 { color: #DC2626; }
+
+  .score-box p {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.5;
+  }
+
+  .score-results {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* ── CTA / FECHAMENTO ── */
+  .page-cta {
+    background: linear-gradient(165deg, #0B1D3A 0%, #0f2847 50%, #132f54 100%);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px;
+  }
+
+  .cta-highlight {
+    background: rgba(239,68,68,0.15);
+    color: #FCA5A5;
+    border: 1px solid rgba(239,68,68,0.3);
+    border-radius: 12px;
+    padding: 24px 32px;
+    margin-bottom: 40px;
+    max-width: 440px;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .cta-highlight strong {
+    color: #FF6B2C;
+  }
+
+  .cta-title {
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.25;
+    margin-bottom: 16px;
+    max-width: 450px;
+  }
+
+  .cta-text {
+    font-size: 15px;
+    color: #8899B0;
+    margin-bottom: 36px;
+    max-width: 400px;
+    line-height: 1.6;
+  }
+
+  .cta-button {
+    display: inline-block;
+    background: #FF6B2C;
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 16px 40px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+  }
+
+  .cta-button.green {
+    background: #25D366;
+    margin-top: 8px;
+  }
+
+  .cta-small {
+    font-size: 12px;
+    color: #4a5568;
+    margin-top: 8px;
+  }
+
+  .cta-contact {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 13px;
+    color: #8899B0;
+  }
+
+  .cta-contact a {
+    color: #FF6B2C;
+    text-decoration: none;
+  }
+
+  /* ── QUOTE BOX ── */
+  .quote-box {
+    background: #f0f5ff;
+    border-left: 4px solid #1E5AFA;
+    border-radius: 0 10px 10px 0;
+    padding: 20px 24px;
+    margin: 24px 0;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: none; }
+    .page {
+      margin: 0;
+      box-shadow: none;
+      page-break-after: always;
+      page-break-inside: avoid;
+    }
+    .page:last-child {
+      page-break-after: auto;
+    }
+  }
+
+  @media screen {
+    body {
+      background: #e5e7eb;
+      padding: 20px 0;
+    }
+    .page {
+      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+      margin-bottom: 20px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════ -->
+<!-- PÁGINA 1 — CAPA -->
+<!-- ════════════════════════════════════════ -->
+<div class="page page-capa">
+  <div class="capa-badge">Material exclusivo 2026</div>
+
+  <h1 class="capa-title">
+    Checklist: Sua empresa está <span>regular no FGTS?</span>
+  </h1>
+
+  <p class="capa-subtitle">
+    Descubra se sua empresa corre risco de entrar na dívida ativa, sofrer execução fiscal ou ter contas bloqueadas por irregularidades no FGTS.
+  </p>
+
+  <div class="capa-divider"></div>
+
+  <div class="capa-stats">
+    <div class="capa-stat">
+      <span class="capa-stat-number">1,62 mi</span>
+      <span class="capa-stat-label">empresas com pendências no FGTS</span>
+    </div>
+    <div class="capa-stat">
+      <span class="capa-stat-number">219 mil</span>
+      <span class="capa-stat-label">já inscritas na dívida ativa</span>
+    </div>
+    <div class="capa-stat">
+      <span class="capa-stat-number">R$ 50 bi+</span>
+      <span class="capa-stat-label">em dívida acumulada de FGTS</span>
+    </div>
+  </div>
+
+  <div class="capa-logo">Regulariza<span>FGTS</span></div>
+
+  <div class="capa-footer">regularizafgts.com.br — Consultoria especializada em regularização de FGTS</div>
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- PÁGINA 2 — ABERTURA -->
+<!-- ════════════════════════════════════════ -->
+<div class="page page-content">
+  <div class="page-header">
+    <div class="page-logo">Regulariza<span>FGTS</span></div>
+    <div class="page-number">02</div>
+  </div>
+
+  <div class="section-badge">Para quem é este material</div>
+  <h2 class="section-title">Antes de tudo: este material<br>é para você?</h2>
+
+  <div class="abertura-box">
+    <p>Este guia foi criado especialmente para empresários, contadores e gestores de RH que precisam ter certeza de que sua empresa está 100% regular com o FGTS.</p>
+
+    <p><strong>Este material é para você se:</strong></p>
+
+    <ul class="abertura-list">
+      <li>Tem ou teve funcionários registrados (CLT)</li>
+      <li>Já recebeu notificação sobre divergências no FGTS</li>
+      <li>Nunca fez uma revisão completa dos recolhimentos</li>
+      <li>Quer evitar surpresas em fiscalizações</li>
+      <li>Precisa de CND ou certidão de regularidade</li>
+      <li>Tem dúvidas se o FGTS está sendo recolhido corretamente</li>
+    </ul>
+  </div>
+
+  <div class="quote-box">
+    "A maioria das empresas só descobre o problema quando já está na dívida ativa. Este material existe para que você não seja pego de surpresa."
+  </div>
+
+  <p style="font-size:14px;color:#666;margin-top:24px;line-height:1.7;">
+    Nas próximas páginas, você vai encontrar um checklist completo para identificar riscos, entender as consequências e fazer uma autoavaliação da situação da sua empresa. <strong>Leva menos de 5 minutos.</strong>
+  </p>
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- PÁGINA 3 — VOCÊ PODE ESTAR EM RISCO SE… -->
+<!-- ════════════════════════════════════════ -->
+<div class="page page-content">
+  <div class="page-header">
+    <div class="page-logo">Regulariza<span>FGTS</span></div>
+    <div class="page-number">03</div>
+  </div>
+
+  <div class="section-badge orange">Sinais de alerta</div>
+  <h2 class="section-title">Você pode estar em risco se…</h2>
+  <p class="section-intro">Marque cada item que se aplica à realidade da sua empresa. Quanto mais itens marcados, maior a urgência de agir.</p>
+
+  <ul class="checklist">
+    <li>
+      <div class="check-box"></div>
+      <div><strong>Já teve divergência entre eSocial e FGTS</strong><br>Dados inconsistentes entre as obrigações geram notificações automáticas da Receita Federal.</div>
+    </li>
+    <li>
+      <div class="check-box"></div>
+      <div><strong>Não confere o FGTS mensalmente</strong><br>Erros acumulados mês a mês se transformam em dívidas significativas com juros e multa.</div>
+    </li>
+    <li>
+      <div class="check-box"></div>
+      <div><strong>Possui funcionários desligados recentemente</strong><br>O recolhimento rescisório (multa de 40%) é um dos pontos com mais irregularidades.</div>
+    </li>
+    <li>
+      <div class="check-box"></div>
+      <div><strong>Nunca revisou o histórico da SEFIP/GFIP</strong><br>Erros em competências passadas podem resultar em cobranças retroativas de até 5 anos.</div>
+    </li>
+    <li>
+      <div class="check-box"></div>
+      <div><strong>Já teve dificuldade para obter CND</strong><br>A Certidão Negativa de Débitos bloqueada é um forte indicativo de pendências ocultas.</div>
+    </li>
+    <li>
+      <div class="check-box"></div>
+      <div><strong>Tem guias de FGTS pagas mas não vinculadas</strong><br>Pagamento sem vinculação correta é como não ter pago — a empresa continua devendo.</div>
+    </li>
+    <li>
+      <div class="check-box"></div>
+      <div><strong>Usa mais de um sistema de folha</strong><br>Migração entre sistemas é uma das maiores fontes de inconsistências no FGTS.</div>
+    </li>
+    <li>
+      <div class="check-box"></div>
+      <div><strong>Nunca aplicou a Tomador/Obra corretamente</strong><br>Empresas do ramo de construção civil e prestadores de serviço enfrentam regras extras de vinculação.</div>
+    </li>
+  </ul>
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- PÁGINA 4 — O QUE PODE ACONTECER -->
+<!-- ════════════════════════════════════════ -->
+<div class="page page-content">
+  <div class="page-header">
+    <div class="page-logo">Regulariza<span>FGTS</span></div>
+    <div class="page-number">04</div>
+  </div>
+
+  <div class="section-badge red">Consequências reais</div>
+  <h2 class="section-title">O que acontece com quem<br>não regulariza o FGTS</h2>
+  <p class="section-intro">Ignorar irregularidades no FGTS não faz elas desaparecerem — faz elas se multiplicarem. Veja o que está em jogo:</p>
+
+  <div class="impact-grid">
+    <div class="impact-card">
+      <h4>Inscrição na Dívida Ativa</h4>
+      <p>A empresa é inscrita na dívida ativa da União, com restrição no CNPJ e impossibilidade de emitir CND.</p>
+    </div>
+    <div class="impact-card">
+      <h4>Execução Fiscal</h4>
+      <p>A Procuradoria pode entrar com ação de execução fiscal, penhorando bens e contas bancárias da empresa.</p>
+    </div>
+    <div class="impact-card warning">
+      <h4>Bloqueio de Contas</h4>
+      <p>Contas bancárias podem ser bloqueadas judicialmente sem aviso prévio por determinação da Justiça Federal.</p>
+    </div>
+    <div class="impact-card warning">
+      <h4>Multas e Juros</h4>
+      <p>Multa de 20% a 75% sobre o valor devido, acrescidos de juros SELIC acumulados desde o vencimento.</p>
+    </div>
+    <div class="impact-card">
+      <h4>Impedimento para Crédito</h4>
+      <p>Bancos consultam regularidade fiscal. Pendências no FGTS barram financiamentos e linhas de crédito.</p>
+    </div>
+    <div class="impact-card">
+      <h4>Exclusão de Licitações</h4>
+      <p>Empresas com débitos no FGTS são automaticamente desclassificadas de processos licitatórios públicos.</p>
+    </div>
+  </div>
+
+  <div class="quote-box">
+    "Empresas que devem FGTS não conseguem crédito, não participam de licitações e podem ter suas contas bloqueadas a qualquer momento. O custo de não regularizar é sempre maior."
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- PÁGINA 5 — ERROS MAIS COMUNS -->
+<!-- ════════════════════════════════════════ -->
+<div class="page page-content">
+  <div class="page-header">
+    <div class="page-logo">Regulariza<span>FGTS</span></div>
+    <div class="page-number">05</div>
+  </div>
+
+  <div class="section-badge orange">Erros ocultos</div>
+  <h2 class="section-title">Os 6 erros mais comuns<br>que geram dívida de FGTS</h2>
+  <p class="section-intro">A maioria destes erros acontece sem que a empresa perceba — e quando percebe, já acumulou anos de débito.</p>
+
+  <div class="error-item">
+    <div class="error-icon">1</div>
+    <div>
+      <h4>FGTS pago mas não vinculado ao trabalhador</h4>
+      <p>A guia foi paga, mas o valor não foi conectado à conta do funcionário na Caixa. Para o sistema, a empresa continua devendo.</p>
+    </div>
+  </div>
+
+  <div class="error-item">
+    <div class="error-icon">2</div>
+    <div>
+      <h4>Diferença entre folha de pagamento e FGTS</h4>
+      <p>Quando o salário da folha não bate com a base de cálculo do FGTS, a Receita Federal cruza os dados e gera auto de infração.</p>
+    </div>
+  </div>
+
+  <div class="error-item">
+    <div class="error-icon">3</div>
+    <div>
+      <h4>Eventos enviados com erro no eSocial</h4>
+      <p>Admissões, afastamentos e desligamentos com datas ou valores incorretos geram inconsistências que acumulam mês a mês.</p>
+    </div>
+  </div>
+
+  <div class="error-item">
+    <div class="error-icon">4</div>
+    <div>
+      <h4>SEFIP/GFIP com dados desatualizados</h4>
+      <p>Informações transmitidas com erro e nunca retificadas criam um histórico de débitos fictícios — mas cobrados como reais.</p>
+    </div>
+  </div>
+
+  <div class="error-item">
+    <div class="error-icon">5</div>
+    <div>
+      <h4>Multa rescisória calculada incorretamente</h4>
+      <p>O cálculo dos 40% sobre o saldo do FGTS em rescisões é fonte frequente de erros, especialmente com histórico longo.</p>
+    </div>
+  </div>
+
+  <div class="error-item">
+    <div class="error-icon">6</div>
+    <div>
+      <h4>Migração entre sistemas de folha</h4>
+      <p>Ao trocar de sistema, dados de competências anteriores podem não ser migrados corretamente, gerando "buracos" no histórico.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- PÁGINA 6 — AUTOAVALIAÇÃO -->
+<!-- ════════════════════════════════════════ -->
+<div class="page page-content">
+  <div class="page-header">
+    <div class="page-logo">Regulariza<span>FGTS</span></div>
+    <div class="page-number">06</div>
+  </div>
+
+  <div class="section-badge green">Ferramenta prática</div>
+  <h2 class="section-title">Autoavaliação: qual é o<br>nível de risco da sua empresa?</h2>
+  <p class="section-intro">Marque os itens abaixo que se aplicam à sua empresa e some os pontos para descobrir seu nível de risco.</p>
+
+  <ul class="checklist">
+    <li>
+      <div class="check-box"></div>
+      <div>Não confiro o FGTS mensalmente na Caixa</div>
+    </li>
+    <li>
+      <div class="check-box"></div>
+      <div>Já tive divergências entre eSocial e FGTS</div>
+    </li>
+    <li>
+      <div class="check-box"></div>
+      <div>Tive dificuldade para emitir CND nos últimos 12 meses</div>
+    </li>
+    <li>
+      <div class="check-box"></div>
+      <div>Já recebi notificação da Receita Federal sobre FGTS</div>
+    </li>
+    <li>
+      <div class="check-box"></div>
+      <div>Possuo guias pagas que nunca foram conferidas/vinculadas</div>
+    </li>
+    <li>
+      <div class="check-box"></div>
+      <div>Fiz rescisões nos últimos 2 anos sem conferir o extrato FGTS</div>
+    </li>
+    <li>
+      <div class="check-box"></div>
+      <div>Troquei de sistema de folha e não conferi a migração</div>
+    </li>
+    <li>
+      <div class="check-box"></div>
+      <div>Nunca retifiquei uma SEFIP/GFIP desde que abri a empresa</div>
+    </li>
+    <li>
+      <div class="check-box"></div>
+      <div>Minha empresa tem funcionários em obra ou serviço terceirizado</div>
+    </li>
+    <li>
+      <div class="check-box"></div>
+      <div>Não sei se meu FGTS está sendo recolhido na conta correta dos funcionários</div>
+    </li>
+  </ul>
+
+  <div class="score-results">
+    <div class="score-box green">
+      <h4>0 a 2 itens marcados — Risco Baixo</h4>
+      <p>Sua empresa aparenta estar em boa situação, mas uma revisão preventiva é sempre recomendada.</p>
+    </div>
+    <div class="score-box yellow">
+      <h4>3 a 5 itens marcados — Risco Moderado</h4>
+      <p>Há sinais de que podem existir inconsistências. Uma análise profissional pode evitar problemas futuros.</p>
+    </div>
+    <div class="score-box red">
+      <h4>6 ou mais itens — Risco Alto</h4>
+      <p>Sua empresa provavelmente tem pendências significativas. <strong>Recomendamos agir imediatamente.</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- PÁGINA 7 — CTA / FECHAMENTO -->
+<!-- ════════════════════════════════════════ -->
+<div class="page page-cta">
+  <div class="capa-logo" style="margin-bottom:40px;font-size:24px;">Regulariza<span>FGTS</span></div>
+
+  <div class="cta-highlight">
+    Se você marcou <strong>3 ou mais itens</strong> na autoavaliação, sua empresa pode já estar em situação de risco fiscal.
+  </div>
+
+  <h2 class="cta-title">Não espere a notificação chegar.</h2>
+
+  <p class="cta-text">
+    Nossa equipe de especialistas pode analisar a situação completa da sua empresa em até 24 horas — sem compromisso.
+  </p>
+
+  <a href="https://regularizafgts.com.br/#diagnostico" class="cta-button">Fazer Diagnóstico Gratuito</a>
+  <a href="https://wa.me/5544998047474?text=Ol%C3%A1%2C%20baixei%20o%20checklist%20e%20quero%20analisar%20o%20FGTS%20da%20minha%20empresa" class="cta-button green">Falar pelo WhatsApp</a>
+
+  <p class="cta-small">Diagnóstico 100% gratuito e sem compromisso</p>
+
+  <div class="cta-contact">
+    <strong>contato@regularizafgts.com.br</strong><br>
+    <a href="https://regularizafgts.com.br">regularizafgts.com.br</a> · WhatsApp (44) 99804-7474
+  </div>
+</div>
+
+</body>
+</html>
