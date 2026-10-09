@@ -1,6 +1,3 @@
 User-agent: *
 Allow: /
-Disallow: /js/
-Disallow: /css/
-
 Sitemap: https://regularizafgts.com.br/sitemap.xml

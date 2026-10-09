@@ -1,0 +1,4 @@
+# Canonical host: preserve path and query string while redirecting www to apex.
+https://www.regularizafgts.com.br/* https://regularizafgts.com.br/:splat 301!
+http://www.regularizafgts.com.br/* https://regularizafgts.com.br/:splat 301!
+http://regularizafgts.com.br/* https://regularizafgts.com.br/:splat 301!
